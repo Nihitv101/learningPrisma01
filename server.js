@@ -1,16 +1,19 @@
 import dotenv from 'dotenv';
 import express from 'express';
 
-require('dotenv');
+import userRoute from './routes/user.route.js';
+
+dotenv.config()
 
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+app.use(express.json());
 
-app.get('/', (req, res)=>{
-    return res.send("hi")
-})
+app.use('/api/user', userRoute);
+
+
 
 
 
