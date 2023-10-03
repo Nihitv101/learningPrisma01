@@ -18,5 +18,47 @@ model User{
   email String? @unique
   password String?
   created_at DateTime @default(now())
+  post Post[]
+  comments Comments[]
 }
+
+
+
+// relations ship in prisma
+
+model Post{
+
+  id Int @id @default(autoincrement())
+  user_id Int
+  user User @relation(fields: [user_id], references: [id], onDelete:  Cascade)
+  title String
+  description String
+  comment_count BigInt @default(0)
+  created_at DateTime @default(now())
+
+
+  comments Comments[]
+  
+}
+
+
+
+model Comments{
+  id String @id @default(uuid())
+
+
+  post Post @relation(fields: [post_id], references: [id], onDelete: Cascade)
+  post_id Int
+
+  user User @relation(fields: [user_id] ,references: [id], onDelete: Cascade)
+  user_id Int
+
+  comment String
+  created_at DateTime @default(now())
+
+}
+
+
+
+
 
